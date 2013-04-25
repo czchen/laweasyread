@@ -11,6 +11,8 @@ var lsc = path.join(bin, 'lsc');
 var mocha = path.join(bin, 'mocha');
 var jscoverage = path.join(bin, 'jscoverage');
 
+var SERVER_TEST = path.join('test', 'server');
+
 var compile = function (src) {
     for (var i = 0; i < src.length; ++i) {
         shell.exec([lsc, '-c', src[i]].join(' '));
@@ -33,11 +35,6 @@ var generate_coverage = function (src) {
     }
 };
 
-var find_all_test_scripts = function () {
-    return shell.find('test').filter(function (file) {
-        return /_mocha\.js$/.test(file); } );
-};
-
 (function () {
     var cmd;
     var scripts;
@@ -46,21 +43,19 @@ var find_all_test_scripts = function () {
     compile(['lib', 'test']);
     generate_coverage(['lib']);
 
-    scripts = find_all_test_scripts();
-
     // server side unit test
     cmd = [mocha,
         '--no-colors',
-        '--growl'];
-    cmd = cmd.concat(scripts);
+        '--growl',
+        SERVER_TEST];
     ret = shell.exec(cmd.join(' '));
     if (ret.code !== 0) shell.exit(ret.code);
 
     // server side coverage
     process.env.LAWEASYREAD_COV = true;
     cmd = [mocha,
-        '--reporter', 'html-cov']
-    cmd = cmd.concat(scripts);
+        '--reporter', 'html-cov',
+        SERVER_TEST];
     ret = shell.exec(cmd.join(' '), { silent: true });
     if (ret.code !== 0) shell.exit(ret.code);
     fs.writeFileSync(path.join('coverage', 'report.html'), ret.output);

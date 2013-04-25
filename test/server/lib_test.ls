@@ -2,7 +2,7 @@ require!<[chai]>
 test = it
 should = chai.should!
 
-parse = require \.. .parse
+parse = require \../.. .parse
 
 const DATA =
     * decimal: 1

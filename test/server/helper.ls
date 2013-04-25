@@ -1,5 +1,5 @@
 require!{async, child_process, mongodb}
-laweasyread = require \../
+laweasyread = require \../../
 
 servers = {};
 databases = {};
