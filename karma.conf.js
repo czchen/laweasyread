@@ -27,7 +27,7 @@ files = [
   'public/js/*.js',
 
   // test
-  'test/unit/*.js'
+  'test/client/*.js'
 ];
 
 
