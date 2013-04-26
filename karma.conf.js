@@ -12,8 +12,8 @@ preprocessors = {
 
 // list of files / patterns to load in the browser
 files = [
-  JASMINE,
-  JASMINE_ADAPTER,
+  MOCHA,
+  MOCHA_ADAPTER,
 
   // lib
   'public/js/lib/angular.js',
@@ -21,6 +21,9 @@ files = [
   'public/js/lib/ui-bootstrap-tpls-0.2.0.js',
 
   // test lib
+  'node_modules/chai/chai.js',
+  'node_modules/sinon/lib/sinon.js',
+  'node_modules/sinon/lib/sinon/spy.js',
   'test/lib/angular/angular-mocks.js',
 
   // app
